@@ -3,7 +3,6 @@ import QtQuick
 Rectangle {
     id: root
     property Item target
-    //width: windowMain.width
     height: 0.4 * parent.height
     anchors.bottom: parent.bottom
     anchors.left: parent.left
@@ -12,13 +11,13 @@ Rectangle {
 
     property double rowSpacing:     0.01 * width  // horizontal spacing between keyboard
     property double columnSpacing:  0.02 * height // vertical   spacing between keyboard
-    property bool   shift:          false
-    property bool   symbols:        false
-    property double columns:        10
-    property double rows:           4
+    property bool   shift:          false //Boolean for the shift state
+    property bool   symbols:        false //Boolean for the symbol state
+    property double columns:        10 // Number of column
+    property double rows:           4 // Number of row
 
-    property string strShift: '\u2191'
-    property string strBackspace: '\u2190'
+    property string strShift: '\u2191' // UPWARDS ARROW unicode
+    property string strBackspace: '\u2190' // LEFTWARDS ARROW unicode
 
     property var modelKeyboard: {
         "row_1" : [

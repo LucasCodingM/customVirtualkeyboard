@@ -1,33 +1,25 @@
 import QtQuick
 
 Item {
-    id: root
-    objectName: "root"
+    id: keyboard_controller
+    objectName: "keyboard_controller"
 
     signal accepted(string text);   // onAccepted: print('onAccepted', text)
-    property Item target
+    property Item target // reference on the TextInput
     property bool isKeyboardActive: false
+
+    property var rootObject
 
     function show() {
 
         if(!isKeyboardActive && keyboard === null)
         {
-
-            // var rootObject = null, object = parent // search up the parent chain to find QQuickView::rootObject()
-            // while(object) {
-            //     if(object)  rootObject = object
-            //     object = object.parent
-            // }
-
-            keyboard = keyboardComponent.createObject(windowMain)
-            keyboard.target = root.target
-
+            keyboard = keyboardComponent.createObject(keyboard_controller.rootObject)
+            keyboard.target = keyboard_controller.target
             isKeyboardActive = true
         }
         else
-        {
             console.info("The keyboard is already shown")
-        }
     }
 
     function hide()

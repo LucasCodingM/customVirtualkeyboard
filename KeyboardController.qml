@@ -20,8 +20,6 @@ Item {
             // }
 
             keyboard = keyboardComponent.createObject(windowMain)
-            // keyboard.width   = windowMain.width // resize
-            // keyboard.height  = windowMain.height
             keyboard.target = root.target
 
             isKeyboardActive = true

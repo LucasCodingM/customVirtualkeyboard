@@ -6,6 +6,7 @@ Button {
     property string label: "test"
     property real buttonWidth: 40
     property real buttonHeight: 40
+    property bool isShift: false
     text: qsTr(label)
 
     function setOpacity()
@@ -26,6 +27,8 @@ Button {
     {
         if(pressed)
             return "#afafaf"
+        if(isShift)
+            return "#589de8"
         return "white"
     }
 

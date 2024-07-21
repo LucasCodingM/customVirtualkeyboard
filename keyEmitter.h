@@ -10,8 +10,8 @@ class KeyEmitter : public QObject
     Q_OBJECT
 public:
     KeyEmitter(QObject* parent=nullptr) : QObject(parent) {}
-    Q_INVOKABLE void keyPressed(QObject* obj, Qt::Key key) {
-        QKeyEvent keyPressEvent = QKeyEvent(QEvent::Type::KeyPress, key, Qt::NoModifier, QKeySequence(key).toString());
+    Q_INVOKABLE void keyPressed(QObject* obj, Qt::Key key, QString strKey) {
+        QKeyEvent keyPressEvent = QKeyEvent(QEvent::Type::KeyPress, key, Qt::NoModifier, strKey);
         QCoreApplication::sendEvent(obj, &keyPressEvent);
     }   
 };

@@ -19,7 +19,7 @@ qt_add_qml_module(appcustomVirtualKeyboard
     SOURCES keyEmitter.h
     QML_FILES Keyboard.qml
     QML_FILES KeyboardController.qml
-    QML_FILES KeyboardInput.qml
+    QML_FILES
     QML_FILES CustomButtonKeyboard.qml
 )
 

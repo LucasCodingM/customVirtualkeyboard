@@ -4,7 +4,7 @@ Rectangle {
     id: root
     property Item target
     //width: windowMain.width
-    height: 0.4 * windowMain.height
+    height: 0.4 * parent.height
     anchors.bottom: parent.bottom
     anchors.left: parent.left
     anchors.right: parent.right
@@ -103,99 +103,114 @@ Rectangle {
         "_y" : Qt.Key_Y,
         "_z" : Qt.Key_Z,
 
-        "_\u2190": Qt.Key_Backspace
+        "_\u2190": Qt.Key_Backspace,
+        "_return": Qt.Key_Return,
+        "_ ": Qt.Key_Space,
+        "_-": Qt.Key_Minus,
+        "_/": Qt.Key_Slash,
+        "_:": Qt.Key_Colon,
+        "_;": Qt.Key_Semicolon,
+        "_(": Qt.Key_BracketLeft,
+        "_)": Qt.Key_BracketRight,
+        "_€": parseInt("20ac", 16),
+        "_&": Qt.Key_Ampersand,
+        "_@": Qt.Key_At,
+        '_"': Qt.Key_QuoteDbl,
+        "_.": Qt.Key_Period,
+        "_,": Qt.Key_Comma,
+        "_?": Qt.Key_Question,
+        "_!": Qt.Key_Exclam,
+        "_'": Qt.Key_Apostrophe,
+        "_%": Qt.Key_Percent,
+        "_*": Qt.Key_Asterisk
     }
 
-    Column {
-        spacing: columnSpacing
-        Row {
-            Item {
-                width: root.width
-                height: columnSpacing/2
-            }
-        }
+    Item {
+        id: keyboard_container
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: 5
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 5
 
-        Row {
-            id:row_1
-            spacing: rowSpacing
-            Repeater {
-                model: modelKeyboard["row_1"]
-                delegate: CustomButtonKeyboard {
-                    text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
-                    buttonWidth: modelData.width * keyboard.width / columns - rowSpacing
-                    buttonHeight: keyboard.height / rows - (columnSpacing * 1.5)
+        Column {
+            spacing: columnSpacing
 
-                    onClicked: root.clicked(text)
+            Row {
+                id:row_1
+                spacing: rowSpacing
+                Repeater {
+                    model: modelKeyboard["row_1"]
+                    delegate: CustomButtonKeyboard {
+                        text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
+                        buttonWidth: modelData.width * keyboard_container.width / columns - rowSpacing
+                        buttonHeight: keyboard_container.height / rows - columnSpacing
+
+                        onClicked: root.clicked(text)
+                    }
                 }
             }
-        }
-        Row {
-            id:row_2
-            spacing: rowSpacing
-            Repeater {
-                model: modelKeyboard["row_2"]
-                delegate: CustomButtonKeyboard {
-                    text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
-                    buttonWidth: modelData.width * keyboard.width / columns - rowSpacing
-                    buttonHeight: keyboard.height / rows - (columnSpacing * 1.5)
+            Row {
+                id:row_2
+                spacing: rowSpacing
+                Repeater {
+                    model: modelKeyboard["row_2"]
+                    delegate: CustomButtonKeyboard {
+                        text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
+                        buttonWidth: modelData.width * keyboard_container.width / columns - rowSpacing
+                        buttonHeight: keyboard_container.height / rows - columnSpacing
 
-                    onClicked: root.clicked(text)
+                        onClicked: root.clicked(text)
+                    }
                 }
             }
-        }
-        Row {
-            id:row_3
-            spacing: rowSpacing
-            Repeater {
-                model: modelKeyboard["row_3"]
-                delegate: CustomButtonKeyboard {
-                    text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
-                    buttonWidth: modelData.width * keyboard.width / columns - rowSpacing
-                    buttonHeight: keyboard.height / rows - (columnSpacing * 1.5)
+            Row {
+                id:row_3
+                spacing: rowSpacing
+                Repeater {
+                    model: modelKeyboard["row_3"]
+                    delegate: CustomButtonKeyboard {
+                        text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
+                        buttonWidth: modelData.width * keyboard_container.width / columns - rowSpacing
+                        buttonHeight: keyboard_container.height / rows - columnSpacing
+                        isShift: shift && text === strShift
 
-                    onClicked: root.clicked(text)
+                        onClicked: root.clicked(text)
+                    }
                 }
             }
-        }
-        Row {
-            id:row_4
-            spacing: rowSpacing
-            Repeater {
-                model: modelKeyboard["row_4"]
-                delegate: CustomButtonKeyboard {
-                    text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
-                    buttonWidth: modelData.width * keyboard.width / columns - rowSpacing
-                    buttonHeight: keyboard.height / rows - (columnSpacing * 1.5)
+            Row {
+                id:row_4
+                spacing: rowSpacing
+                Repeater {
+                    model: modelKeyboard["row_4"]
+                    delegate: CustomButtonKeyboard {
+                        text: symbols? modelData.symbol: shift? modelData.text.toUpperCase():  modelData.text
+                        buttonWidth: modelData.width * keyboard_container.width / columns - rowSpacing
+                        buttonHeight: keyboard_container.height / rows - columnSpacing
 
-                    onClicked: root.clicked(text)
+                        onClicked: root.clicked(text)
+                    }
                 }
             }
         }
     }
+
+
 
     signal clicked(string text)
 
     Connections {
            target: root
            function onClicked(text) {
-               var position
-               // if( text === strBackspace) { // LEFTWARDS ARROW (backspace)
-               //     position = textInput.cursorPosition
-               //     textInput.text = textInput.text.substring(0, textInput.cursorPosition - 1) +
-               //                      textInput.text.substring(textInput.cursorPosition, textInput.text.length)
-               //     textInput.cursorPosition = position - 1
-               // }
                if(text === strShift)  shift   = !shift // UPWARDS ARROW (shift)
                else if(text === '123')     symbols = true
                else if(text === 'ABC')   symbols = false
-               else if(text === 'return')  accepted(textInput.text) // DOWNWARDS ARROW WITH CORNER LEFTWARDS (enter)
                else { // insert text
-                   // position = textInput.cursorPosition
-                   // textInput.text = textInput.text.substring(0, textInput.cursorPosition) + text +
-                   //                  textInput.text.substring(textInput.cursorPosition, textInput.text.length)
-                   // textInput.cursorPosition = position + 1
-
-                   keyEmitter.keyPressed(textInput,tableKeyEvent['_'+text])
+                   if(text === 'return')  accepted(textInput.text) // DOWNWARDS ARROW WITH CORNER LEFTWARDS (enter)
+                   keyEmitter.keyPressed(textInput,tableKeyEvent['_'+ text.toLowerCase()],text)
 
                    shift = false // momentary
                }

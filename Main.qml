@@ -28,6 +28,7 @@ Window {
     KeyboardController {
         id: keyboardController
         target: textInput
+        rootObject: windowMain
     }
 
 

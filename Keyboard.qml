@@ -63,6 +63,7 @@ Rectangle {
                 ]
     }
 
+    //Here is the corresponding table between the ascii and the key event
     property var tableKeyEvent: {
         "_0" : Qt.Key_0,
         "_1" : Qt.Key_1,
@@ -111,7 +112,7 @@ Rectangle {
         "_;": Qt.Key_Semicolon,
         "_(": Qt.Key_BracketLeft,
         "_)": Qt.Key_BracketRight,
-        "_€": parseInt("20ac", 16),
+        "_€": parseInt("20ac", 16), // I didn't find the appropriate Qt event so I used the hex format
         "_&": Qt.Key_Ampersand,
         "_@": Qt.Key_At,
         '_"': Qt.Key_QuoteDbl,
@@ -134,6 +135,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
 
+        //One column which contains 5 rows
         Column {
             spacing: columnSpacing
 
@@ -209,6 +211,7 @@ Rectangle {
                else if(text === 'ABC')   symbols = false
                else { // insert text
                    if(text === 'return')  accepted(textInput.text) // DOWNWARDS ARROW WITH CORNER LEFTWARDS (enter)
+                   //the class keyEmitter is from the C++, check keyEmitter.h
                    keyEmitter.keyPressed(textInput,tableKeyEvent['_'+ text.toLowerCase()],text)
 
                    shift = false // momentary

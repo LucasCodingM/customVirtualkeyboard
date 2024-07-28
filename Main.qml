@@ -8,7 +8,7 @@ Window {
     visible: true
     title: qsTr("custom virtual keyboard")
 
-
+    // This is the text input
     Rectangle {
         color: "#134B70"
         anchors {left: parent.left;  right: parent.right;  top: parent.top;  margins: 10}
@@ -23,7 +23,9 @@ Window {
         }
     }
 
+    //When the component is ready the keyboard is shown
     Component.onCompleted: keyboardController.show()
+
 
     KeyboardController {
         id: keyboardController

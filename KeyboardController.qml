@@ -4,8 +4,9 @@ Item {
     id: keyboard_controller
     objectName: "keyboard_controller"
 
-    signal accepted(string text);   // onAccepted: print('onAccepted', text)
-    property Item target // reference on the TextInput
+    // reference on the TextInput
+    property Item target
+    //Booléan on the state of the keyboard
     property bool isKeyboardActive: false
 
     property var rootObject
